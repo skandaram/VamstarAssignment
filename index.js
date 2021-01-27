@@ -1,4 +1,5 @@
 const got = require('got');
+const cheerio = require('cheerio');
 
 const main = async () => {
   // "url" holds the link to the page we want to scrape
@@ -6,7 +7,10 @@ const main = async () => {
 
   // Using "got" library to fetch source of page
   const res = await got(url);
-  console.log(res.body);
+
+  // We're going to be using "cheerio" to parse the response body and manipulate DOM
+  const $ = cheerio.load(res.body);
+  console.log($.html());
 };
 
 main();
